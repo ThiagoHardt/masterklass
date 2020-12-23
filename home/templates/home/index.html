@@ -1,11 +1,91 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %} {% block content %}
 
-{% block content %}
-
-<div class="container-fluid">
-    <div class="row">
-
+<div class="row row-sm-cols-2 no-gutters">
+  <div class="col col-12 col-xl-4 home-banner p-5">
+    <h1 class="home-header text-light">
+      The <span class="text-warning">best</span> online learning platform around
+    </h1>
+    <p class="mt-5 text-light" id="banner-text">
+      Discover why thousands of people are using
+      <span class="text-warning">MasterKlass</span> every day.
+    </p>
+    <div class="btn btn-warning btn-large mt-3">Sign up!</div>
+  </div>
+  <div class="col col-12 col-xl-8 carousel-home">
+    <div id="carouselHome" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            src="/media/chef.jpg"
+            class="d-block w-100"
+            alt="Picture of a chef"
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="/media/photographer.jpg"
+            class="d-block w-100"
+            alt="Picture of a photographer"
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="/media/programmer.jpg"
+            class="d-block w-100"
+            alt="Picture of a programmer"
+          />
+        </div>
+      </div>
     </div>
+  </div>
 </div>
+
+<div class="row align-items-center">
+  <div class="col">
+    <h2 class="text-center m-5">New classes added everyday.</h2>
+    <div class="container">
+      <div class="card-group">
+        <div class="card m-3">
+          <img src="/media/programmer.jpg" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Algorithms</h5>
+            <p class="card-text">
+              This is a wider card with supporting text below as a natural
+              lead-in to additional content. This content is a little bit
+              longer.
+            </p>
+          </div>
+        </div>
+        <div class="card m-3">
+          <img src="/media/programmer.jpg" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Algorithms</h5>
+            <p class="card-text">
+              This is a wider card with supporting text below as a natural
+              lead-in to additional content. This content is a little bit
+              longer.
+            </p>
+          </div>
+        </div>
+        <div class="card m-3">
+          <img src="/media/programmer.jpg" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Algorithms</h5>
+            <p class="card-text">
+              This is a wider card with supporting text below as a natural
+              lead-in to additional content. This content is a little bit
+              longer.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 text-center">
+        <div class="btn btn-large btn-outline-secondary m-4">
+          FIND CLASSES FOR YOU
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
