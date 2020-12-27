@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 
-<div class="row row-sm-cols-2 no-gutters">
+<div class="row row-sm-cols-2">
   <div class="col col-12 col-xl-4 home-banner p-5">
     <h1 class="home-header text-light">
       The <span class="text-warning">best</span> online learning platform around
@@ -9,7 +9,9 @@
       Discover why thousands of people are using
       <span class="text-warning">MasterKlass</span> every day.
     </p>
-    <div class="btn btn-warning btn-large mt-3">Sign up!</div>
+    <a class="btn btn-warning btn-large mt-3" href="{% url 'plans' %}"
+      >Sign up!</a
+    >
   </div>
   <div class="col col-12 col-xl-8 carousel-home">
     <div id="carouselHome" class="carousel slide" data-ride="carousel">
@@ -90,46 +92,5 @@
 </div>
 
 <hr class="linebreak mb-5" />
-<div class="row mt-5">
-  <div class="container-fluid footer bg-dark p-2">
-    <div class="col text-center text-white">
-      © 2020 Copyright:
-      <a
-        class="text-copyright"
-        id="text-footer"
-        href="https://thiagohardt.github.io/thiago-hardt-portfolio"
-        target="_blank"
-      >
-        Thiago Hardt</a
-      >
-      <div class="col">
-        <a
-          class="text-white"
-          href="https://www.linkedin.com/in/thiago-hardt-461144195"
-          target="_blank"
-          ><i class="fab fa-linkedin social-link"></i
-        ></a>
-        <a
-          class="text-white"
-          href="https://github.com/ThiagoHardt"
-          target="_blank"
-          ><i class="fab fa-github-square social-link"></i
-        ></a>
-        <a
-          class="text-white"
-          href="https://www.facebook.com/thiago.hardt/"
-          target="_blank"
-          ><i class="fab fa-facebook-square social-link"></i
-        ></a>
-        <a
-          class="text-white"
-          href="https://www.instagram.com/thiagohardt/"
-          target="_blank"
-          ><i class="fab fa-instagram-square social-link"></i
-        ></a>
-      </div>
-    </div>
-  </div>
-</div>
 
 {% endblock %}

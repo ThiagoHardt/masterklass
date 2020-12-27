@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<div class="row align-items-center">
+  <div class="col">
+    <h2 class="text-center mt-5">Choose the best option for you</h2>
+    <hr class="linebreak mb-5" />
+    <div class="container">
+      <div class="card-group">
+        {% for plan in plans %}
+        <div class="card m-3">
+          <div class="card-body">
+            <h5 class="card-title text-center">{{ plan.name }}</h5>
+            <hr class="linebreak mb-2" />
+            <p class="card-text text-center">{{ plan.description }}</p>
+            <hr class="linebreak" />
+            <h3 class="text-center font-weight-bolder">
+              Only €{{ plan.price }}
+            </h3>
+            <div class="row text-center">
+              <div class="col">
+                <a class="btn btn-warning btn-large mt-3" href="">Sign up!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
