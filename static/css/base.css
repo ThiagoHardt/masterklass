@@ -3,7 +3,8 @@
 
 html, body {
     font-family: 'Roboto', sans-serif;
-    background-color: rgb(240, 240, 240);
+    background-color: #f1f1f1;
+    
 }
 
 .navbar {
@@ -29,6 +30,32 @@ html, body {
 .carousel-item {
     max-height: 550px
 }
+
+.linebreak {
+    height: 2px;
+    width: 40%;
+    background: linear-gradient(357deg, rgb(240, 240, 240) 0%, rgba(52,58,64,1) 50%, rgba(240, 240, 240,1) 100%);
+}
+
+.text-copyright {
+    color: #ffffff;
+}
+
+.text-copyright:hover {
+    color: #727272;
+    transition: ease-in-out 0.3s;
+    text-decoration: none;
+}
+
+.social-link {
+    font-size: 25px;
+}
+
+.social-link:hover {
+    color:  #727272;
+    transition: ease-in-out 0.3s;
+}
+
 
 
 
