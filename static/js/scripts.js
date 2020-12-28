@@ -1,3 +1,6 @@
-$('.carousel').carousel({
-    interval: 100
-})
+$(document).ready(function() {
+    $('.carousel').carousel({
+        interval: 100
+    })
+});
+  

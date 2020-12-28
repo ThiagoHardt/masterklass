@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+{% comment %} Search Bar {% endcomment %}
+<form>
+    <div class="form-group pt-5">
+        <div class="row justify-content-center">
+            <div class="col-10 col-md-10 col-sm-10 col-lg-5">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button type="submit" class="input-group-text bg-warning" id="basic-addon1"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <ul>
+            <li type="button" class="btn btn-sm btn-outline-secondary chip nav-item active">All Courses</li>
+            {% for category in categories %}
+            <li type="button" class="btn btn-sm btn-outline-secondary chip nav-item">{{category.name}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</form>
+
+{% comment %} Lessons by Course {% endcomment %}
+{% for course in courses %}
+<div class="container-fluid">
+    <h4>{{course.title}}</h4>
+    <div class="card-deck">
+        {% for lesson in lessons %}
+        {% if lesson.course.title == course.title %}
+        <div class="card">
+            <img src="{{lesson.image}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{lesson.title}}</h5>
+                <p class="card-text">{{lesson.course}}</p>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

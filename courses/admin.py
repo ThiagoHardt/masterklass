@@ -1,5 +1,23 @@
 from django.contrib import admin
-from .models import Course, Lesson
+from .models import Course, Lesson, Category
 
-admin.site.register(Course)
-admin.site.register(Lesson)
+
+class CourseAdmin(admin.ModelAdmin):
+    list_display = (
+        "category",
+        "title"
+    )
+
+
+class LessonAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
+        "course"
+    )
+
+    ordering = ("course",)
+
+
+admin.site.register(Category)
+admin.site.register(Course, CourseAdmin)
+admin.site.register(Lesson, LessonAdmin)
