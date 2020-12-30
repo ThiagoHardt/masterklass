@@ -18,6 +18,7 @@ class Course(models.Model):
         "Category", null=True, blank=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=155)
     description = models.TextField(max_length=1024)
+    thumbnail = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.title

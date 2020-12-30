@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 
-{% comment %} Search Bar {% endcomment %}
 <form>
     <div class="form-group pt-5">
         <div class="row justify-content-center">
@@ -17,27 +16,37 @@
     </div>
 
     <div class="form-group">
-        <ul>
-            <li type="button" class="btn btn-sm btn-outline-secondary chip nav-item active">All Courses</li>
-            {% for category in categories %}
-            <li type="button" class="btn btn-sm btn-outline-secondary chip nav-item">{{category.name}}</li>
-            {% endfor %}
-        </ul>
+        <div class="row justify-content-center">
+            <ul>
+                <li type="button" class="btn btn-sm btn-outline-secondary chip nav-item active">All Courses</li>
+                {% for category in categories %}
+                <li type="button" class="btn btn-sm btn-outline-secondary chip nav-item">{{category.name}}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </form>
 
-{% comment %} Lessons by Course {% endcomment %}
-{% for course in courses %}
-<div class="container-fluid">
-    <h4>{{course.title}}</h4>
-    <div class="card-deck">
-        {% for lesson in lessons %}
-        {% if lesson.course.title == course.title %}
-        <div class="card">
-            <img src="{{lesson.image}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{lesson.title}}</h5>
-                <p class="card-text">{{lesson.course}}</p>
+{% for category in categories %}
+<div class="row d-block mx-auto">
+    <h4 class="pt-5">{{category.name}}</h4>
+</div>
+<hr class="linebreak mb-5" />
+<div class="container p-0">
+    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+        {% for course in courses %}
+        {% if course.category.name == category.name %}
+        <div class="col">
+            <div class="card card-courses shadow-sm mx-auto">
+                {% if course.thumbnail %}
+                <img src="{{course.thumbnail.url}}" class="card-img-top" alt="{{course.title}}">
+                {% else %}
+                <img src="/media/default-image.png" class="card-img-top" alt="{{course.title}}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{course.title}}</h5>
+                </div>
+                <a href="" class="btn btn-sm btn-outline-secondary mb-3 w-50 mx-auto">Go to Course</a>
             </div>
         </div>
         {% endif %}
@@ -45,5 +54,4 @@
     </div>
 </div>
 {% endfor %}
-
 {% endblock %}

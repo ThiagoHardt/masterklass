@@ -4,8 +4,8 @@ from .models import Course, Lesson, Category
 
 class CourseAdmin(admin.ModelAdmin):
     list_display = (
-        "category",
-        "title"
+        "title",
+        "category"
     )
 
 
