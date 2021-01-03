@@ -81,7 +81,7 @@ main {
     transition: ease-in-out 0.3s;
 }
 
-.chip {
+.pill {
     border-radius: 50px;
 }
 
@@ -95,4 +95,16 @@ main {
     height: 150px;
 }
 
+.card-lessons {
+    width: fit-content;
+    margin-bottom: 20px;
+}
+
+.pill-user {
+    background-color: #f1f1f1;
+    border-radius: 50px;
+    padding: 5px 15px 5px 15px;
+    display: inline-block;
+    font-weight: bold;
+}
 

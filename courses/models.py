@@ -38,3 +38,9 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.title
+
+
+# class Comment(models.Model):
+#     user = models.ForeignKey(User, null=True, blank=True)
+#     date = models.DateTimeField(auto_now=True)
+#     message = models.TextField(max_length=1024, blank=True)

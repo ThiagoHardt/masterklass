@@ -18,9 +18,9 @@
     <div class="form-group">
         <div class="row justify-content-center">
             <ul>
-                <li type="button" class="btn btn-sm btn-outline-secondary chip nav-item active">All Courses</li>
+                <li type="button" class="btn btn-sm btn-outline-secondary pill nav-item active">All Courses</li>
                 {% for category in categories %}
-                <li type="button" class="btn btn-sm btn-outline-secondary chip nav-item">{{category.name}}</li>
+                <li type="button" class="btn btn-sm btn-outline-secondary pill nav-item">{{category.name}}</li>
                 {% endfor %}
             </ul>
         </div>
@@ -28,7 +28,7 @@
 </form>
 
 {% for category in categories %}
-<div class="row d-block mx-auto">
+<div class="row mx-auto">
     <h4 class="pt-5">{{category.name}}</h4>
 </div>
 <hr class="linebreak mb-5" />
@@ -46,7 +46,9 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">{{course.title}}</h5>
                 </div>
-                <a href="" class="btn btn-sm btn-outline-secondary mb-3 w-50 mx-auto">Go to Course</a>
+                <a href="{% url 'course_detail' course.id %}"
+                    class="btn btn-sm btn-outline-secondary mb-3 w-50 mx-auto">Go to
+                    Course</a>
             </div>
         </div>
         {% endif %}
