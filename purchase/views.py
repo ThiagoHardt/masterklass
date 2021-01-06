@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Plan
 from .forms import SignupForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -32,10 +33,8 @@ def signup(request):
     if request.method == 'POST':
         formData = {
             "username": request.POST["username"],
-            "email": request.POST["email"]
+            "email": request.POST["email"],
+            "password": request.POST["password"],
         }
-
-    signupForm = SignupForm(formData)
-    # if signupForm.is_valid():
 
     return render(request, "home/index.html")

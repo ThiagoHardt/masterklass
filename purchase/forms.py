@@ -1,10 +1,10 @@
 from django import forms
-from profiles.models import UserProfile
+from django.contrib.auth.models import User
 
 
 class SignupForm(forms.ModelForm):
     class Meta:
-        model = UserProfile
+        model = User
         fields = ('username', 'email', 'password')
 
     def __init__(self, *args, **kwargs):
@@ -24,5 +24,4 @@ class SignupForm(forms.ModelForm):
         for field in self.fields:
             placeholder = placeholders[field]
             self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
