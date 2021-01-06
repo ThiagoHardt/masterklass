@@ -1,11 +1,11 @@
 from django import forms
-from django.contrib.auth.models import User
+from profiles.models import UserProfile
 
 
 class SignupForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ('username', 'email',)
+        model = UserProfile
+        fields = ('username', 'email', 'password')
 
     def __init__(self, *args, **kwargs):
         """
@@ -16,9 +16,11 @@ class SignupForm(forms.ModelForm):
         placeholders = {
             'username': 'Username',
             'email': 'Email Address',
+            'password': 'Password',
         }
 
         self.fields['username'].widget.attrs['autofocus'] = True
+        self.fields["email"].required = True
         for field in self.fields:
             placeholder = placeholders[field]
             self.fields[field].widget.attrs['placeholder'] = placeholder

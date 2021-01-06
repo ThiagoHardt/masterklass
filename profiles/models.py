@@ -1,12 +1,12 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.contrib.auth.models import User
 
 
-class UserProfile(models.Model):
+class UserProfile(AbstractUser):
 
     """ User profile model """
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    plan_type = models.SlugField(max_length=255)
 
     def __str__(self):
-        return self.user.username
+        return self.username
