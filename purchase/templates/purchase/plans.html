@@ -16,11 +16,19 @@
             <h3 class="text-center font-weight-bolder">
               Only €{{ plan.price }}
             </h3>
+            {% if plan.active == True %}
             <div class="row text-center">
               <div class="col">
-                <a class="btn btn-warning btn-large mt-3" href="">Sign up!</a>
+                <a class="btn btn-warning btn-large mt-3" href="">Signup</a>
               </div>
             </div>
+            {% else %}
+            <div class="row text-center">
+              <div class="col">
+                <p class="btn btn-secondary btn-large mt-3 disabled">Coming soon</p>
+              </div>
+            </div>
+            {% endif %}
           </div>
         </div>
         {% endfor %}
