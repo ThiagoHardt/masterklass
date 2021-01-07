@@ -8,13 +8,14 @@
                 <div class="card-body">
                     <form action="{% url 'signup' %}" method="post" id="signupForm" name="signupForm">
                         {% csrf_token %}
-                        {{plan.name}}
                         <fieldset class="px-3 mb-5">
                             <legend class="fieldset-label small text-black w-auto">Personal Details</legend>
-                            {{ signupForm.username | as_crispy_field }}
-                            {{ signupForm.email | as_crispy_field }}
-                            {{ signupForm.password | as_crispy_field }}
-                            <input type="hidden" name="planType" id="planType" value="{{ plan.slug }}"></>
+                            {{ form.username | as_crispy_field }}
+                            {{ form.email | as_crispy_field }}
+                            {{ form.password1 | as_crispy_field }}
+                            {{ form.password2 | as_crispy_field }}
+                            {{ profileForm.plan_type | as_crispy_field }}
+                            {{ profileForm.active | as_crispy_field }}
                         </fieldset>
                         <fieldset class="px-3">
                             <legend class="fieldset-label small text-black w-auto">Payment</legend>

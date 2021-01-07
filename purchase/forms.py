@@ -1,27 +1,29 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from profiles.models import UserProfile
 
 
-class SignupForm(forms.ModelForm):
+class ExtendedUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'password')
+        fields = ('username', 'email', 'password1', 'password2')
 
-    def __init__(self, *args, **kwargs):
-        """
-        Add placeholders and classes, remove auto-generated
-        labels and set autofocus on first field
-        """
-        super().__init__(*args, **kwargs)
-        placeholders = {
-            'username': 'Username',
-            'email': 'Email Address',
-            'password': 'Password',
-        }
+    def save(self, commit=True):
+        user = super().save(commit=False)
 
-        self.fields['username'].widget.attrs['autofocus'] = True
-        self.fields["email"].required = True
-        for field in self.fields:
-            placeholder = placeholders[field]
-            self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].label = False
+        user.email = self.cleaned_data['email']
+
+        if commit:
+            user.save()
+
+        return user
+
+
+class UserProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ('plan_type', 'active',)

@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Plan
-from .forms import SignupForm
-from django.contrib.auth.models import User
+from .forms import ExtendedUserCreationForm, UserProfileForm
+
 
 # Create your views here.
 
@@ -16,13 +16,15 @@ def plans(request):
 
 
 def purchasePlan(request, id):
-    """ A view to buy a plan and signup to the service """
+    """ A view to buy a plan """
 
     plan = get_object_or_404(Plan, pk=id)
-    signupForm = SignupForm()
+    form = ExtendedUserCreationForm()
+    profileForm = UserProfileForm()
 
     context = {
-        'signupForm': signupForm,
+        'form': form,
+        'profileForm': profileForm,
         'plan': plan,
     }
 
@@ -31,10 +33,23 @@ def purchasePlan(request, id):
 
 def signup(request):
     if request.method == 'POST':
-        formData = {
-            "username": request.POST["username"],
-            "email": request.POST["email"],
-            "password": request.POST["password"],
-        }
+
+        formData = ExtendedUserCreationForm(request.POST)
+        profileForm = UserProfileForm(request.POST)
+
+        if formData.is_valid() and profileForm.is_valid():
+
+            user = formData.save()
+            plan = get_object_or_404(Plan, pk=request.POST.get("plan_type"))
+
+            profile = profileForm.save(commit=False)
+            profile.user = user
+            profile.plan_type = plan
+            profile.save()
+
+            username = formData.cleaned_data.get('username')
+            password = formData.cleaned_data.get('password')
+
+            return redirect("courses")
 
     return render(request, "home/index.html")
