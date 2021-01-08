@@ -19,6 +19,16 @@ main {
     flex: 1 0 auto;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #727272;
+    transition: ease-in-out 0.3s;
+    text-decoration: none;
+}
+
 .row, .col {
     margin: 0;
     padding: 0;
