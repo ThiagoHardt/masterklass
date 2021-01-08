@@ -26,4 +26,4 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('plan', 'active',)
+        fields = ("plan",)

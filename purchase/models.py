@@ -12,7 +12,7 @@ class Plan(models.Model):
     description = models.TextField()
     slug = models.SlugField(choices=PLAN_CHOICES, default='lifetime')
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=False, null=True)
 
     def __str__(self):
         return self.name

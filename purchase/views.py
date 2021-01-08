@@ -41,11 +41,11 @@ def signup(request):
         if formData.is_valid() and profileForm.is_valid():
 
             user = formData.save()
-            plan = get_object_or_404(Plan, pk=request.POST.get("plan_type"))
+            plan = get_object_or_404(Plan, pk=request.POST.get("plan"))
 
             profile = profileForm.save(commit=False)
             profile.user = user
-            profile.plan_type = plan
+            profile.plan = plan
             profile.save()
 
             username = formData.cleaned_data.get('username')

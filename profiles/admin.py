@@ -7,7 +7,6 @@ class UserProfileAdmin(admin.ModelAdmin):
         "user",
         "plan",
         "date_joined",
-        "active",
     )
 
     readonly_fields = ('date_joined',)
