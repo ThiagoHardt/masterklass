@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from .models import Plan
 from .forms import ExtendedUserCreationForm, UserProfileForm
 
@@ -15,17 +16,15 @@ def plans(request):
     return render(request, 'purchase/plans.html', context)
 
 
-def purchasePlan(request, id):
+def purchasePlan(request):
     """ A view to buy a plan """
 
-    plan = get_object_or_404(Plan, pk=id)
     form = ExtendedUserCreationForm()
     profileForm = UserProfileForm()
 
     context = {
         'form': form,
         'profileForm': profileForm,
-        'plan': plan,
     }
 
     return render(request, 'purchase/purchase_plan.html', context)
@@ -36,6 +35,8 @@ def signup(request):
 
         formData = ExtendedUserCreationForm(request.POST)
         profileForm = UserProfileForm(request.POST)
+
+        context = {'form': formData, 'profileForm': profileForm}
 
         if formData.is_valid() and profileForm.is_valid():
 
@@ -52,4 +53,4 @@ def signup(request):
 
             return redirect("courses")
 
-    return render(request, "home/index.html")
+    return render(request, 'purchase/purchase_plan.html', context)
