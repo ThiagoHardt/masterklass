@@ -5,6 +5,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'
+        ordering = ('name',)
 
     slug = models.SlugField()
     name = models.CharField(max_length=255, null=True, blank=True)
@@ -23,12 +24,12 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
-    @property
-    def lessons(self):
-        return self.lessons_set.all().order_by("position")
-
 
 class Lesson(models.Model):
+
+    class Meta:
+        ordering = ("position",)
+
     slug = models.SlugField()
     title = models.CharField(max_length=155)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
