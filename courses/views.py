@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib import messages
 from django.db.models import Q
 from .models import Course, Lesson, Category
+from django.contrib.auth.decorators import login_required
 
 
 def getCourses(request):
@@ -35,6 +36,7 @@ def getCourses(request):
     return render(request, "courses/courses.html", context)
 
 
+@login_required
 def courseDetail(request, course_id):
     """ A view to show all lessons within a course """
 

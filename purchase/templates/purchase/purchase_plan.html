@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 <h3 class="text-center mt-5">Create a new account</h3>
 <hr class="linebreak mb-5" />
-<div class="container">
+<div class="container mb-5">
     <div class="row align-items-center">
         <div class="col-6 mx-auto">
             <div class="card">
@@ -9,7 +9,6 @@
                     <form action="{% url 'signup' %}" method="post" id="signupForm" name="signupForm">
                         {% csrf_token %}
                         <fieldset class="px-3 mb-5">
-                            <legend class="fieldset-label small text-black w-auto">Personal Details</legend>
                             {{ form.username | as_crispy_field }}
                             {{ form.email | as_crispy_field }}
                             {{ form.password1 | as_crispy_field }}
@@ -21,7 +20,7 @@
                             <div class="mb-3" id="card-element"></div>
                             <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                         </fieldset>
-                        <button type="submit" class="btn btn-sm btn-warning float-right">Submit</button>
+                        <button type="submit" class="btn btn-sm btn-warning float-right">Signup</button>
                     </form>
                 </div>
             </div>
