@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.auth import logout
 from .models import Plan
 from .forms import ExtendedUserCreationForm, UserProfileForm
 
@@ -48,9 +49,8 @@ def signup(request):
             profile.plan = plan
             profile.save()
 
-            username = ""
-            password = ""
+            logout(request)
 
-            return redirect("account_email_verification_sent")
+            return redirect("account_login")
 
     return render(request, 'purchase/purchase_plan.html', context)
