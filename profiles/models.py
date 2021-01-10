@@ -5,8 +5,8 @@ from purchase.models import Plan
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    plan = models.OneToOneField(Plan, null=True, blank=True,
-                                on_delete=models.SET_NULL, limit_choices_to={'active': True})
+    plan = models.ForeignKey(Plan, null=True, blank=True,
+                             on_delete=models.SET_NULL, limit_choices_to={'active': True})
     date_joined = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):

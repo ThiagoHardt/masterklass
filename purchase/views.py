@@ -48,9 +48,9 @@ def signup(request):
             profile.plan = plan
             profile.save()
 
-            username = formData.cleaned_data.get('username')
-            password = formData.cleaned_data.get('password')
+            username = ""
+            password = ""
 
-            return redirect("courses")
+            return redirect("account_email_verification_sent")
 
     return render(request, 'purchase/purchase_plan.html', context)

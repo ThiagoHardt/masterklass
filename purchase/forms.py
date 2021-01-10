@@ -5,7 +5,8 @@ from profiles.models import UserProfile
 
 
 class ExtendedUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True,)
+    User._meta.get_field('email')._unique = True
 
     class Meta:
         model = User
@@ -23,6 +24,10 @@ class ExtendedUserCreationForm(UserCreationForm):
 
 
 class UserProfileForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['plan'].required = True
 
     class Meta:
         model = UserProfile
