@@ -22,12 +22,35 @@ class ExtendedUserCreationForm(UserCreationForm):
 
         return user
 
+    def __init__(self, *args, **kwargs):
+        """
+        Add placeholders and classes, remove auto-generated
+        labels and set autofocus on first field
+        """
+        super().__init__(*args, **kwargs)
+        placeholders = {
+            'username': 'Username',
+            'email': 'Email Address',
+            'password1': 'Password',
+            'password2': 'Confirm Password',
+        }
+
+        for field in self.fields:
+            if self.fields[field].required:
+                placeholder = f'{placeholders[field]} *'
+            else:
+                placeholder = placeholders[field]
+                self.fields[field].widget.attrs['placeholder'] = placeholder
+                self.fields[field].widget.attrs['class'] = 'stripe-style-input'
+                self.fields[field].label = False
+
 
 class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['plan'].required = True
+        self.fields['plan'].label = False
 
     class Meta:
         model = UserProfile

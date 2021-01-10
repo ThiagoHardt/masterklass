@@ -9,19 +9,23 @@
                     <form action="{% url 'signup' %}" method="post" id="signupForm" name="signupForm">
                         {% csrf_token %}
                         <fieldset class="px-3 mb-5">
+                            <legend class="fieldset-label small text-black w-auto mb-3">Personal Details</legend>
                             {{ form.username | as_crispy_field }}
                             {{ form.email | as_crispy_field }}
                             {{ form.password1 | as_crispy_field }}
                             {{ form.password2 | as_crispy_field }}
-                            {{ profileForm.plan | as_crispy_field }}
                         </fieldset>
                         <fieldset class="px-3">
-                            <legend class="fieldset-label small text-black w-auto">Payment</legend>
-                            <div class="mb-3" id="card-element"></div>
+                            <legend class="fieldset-label small text-black w-auto mb-3">Payment</legend>
+                            {{ profileForm.plan | as_crispy_field }}
+
+                            <div class="mb-3 form-control" id="card-element"></div>
                             <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                            <h5 class="text-right">Life-time Subscription</h5>
+                            <h3 class="text-right">Total: $250,00</h3>
+                            <button type="submit" class="btn btn-warning float-right mt-3">Signup</button>
                         </fieldset>
 
-                        <button type="submit" class="btn btn-sm btn-warning float-right">Signup</button>
                     </form>
                 </div>
             </div>

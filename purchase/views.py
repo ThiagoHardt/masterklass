@@ -26,6 +26,7 @@ def purchasePlan(request):
     context = {
         'form': form,
         'profileForm': profileForm,
+        'stripe_public_key': 'pk_test_51HxBfnEz5cJqldVxRK4MUQHAaBJlUJOy911vphGfdlxBFkVaCtP2LjQIJCvPm1udTClUwwte7du2vSODhWds5Tr600Br24qJe6',
     }
 
     return render(request, 'purchase/purchase_plan.html', context)
