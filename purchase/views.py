@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout
 from .models import Plan
@@ -19,7 +19,7 @@ def plans(request):
 
 def purchasePlan(request, plan_id):
     """ A view to buy a plan """
-    plan = Plan.objects.get(id=plan_id)
+    plan = Plan.objects.get(pk=plan_id)
     form = ExtendedUserCreationForm()
     profileForm = UserProfileForm()
 
@@ -37,15 +37,14 @@ def signup(request):
     if request.method == 'POST':
 
         formData = ExtendedUserCreationForm(request.POST)
-        plan = Plan.objects.get(id=request.POST.get('planId'))
-        profileForm = UserProfileForm(plan)
+        plan = Plan.objects.get(pk=request.POST.get('planId'))
+        profileForm = UserProfileForm(request.POST)
 
         context = {'form': formData, 'profileForm': profileForm, 'plan': plan}
 
         if formData.is_valid() and profileForm.is_valid():
 
             user = formData.save()
-
             profile = profileForm.save(commit=False)
             profile.user = user
             profile.plan = plan
