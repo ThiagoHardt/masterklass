@@ -33,10 +33,10 @@
 </div>
 <hr class="linebreak mb-5" />
 <div class="container p-0 mb-5">
-    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 justify-content-center">
         {% for course in courses %}
         {% if course.category.name == category.name %}
-        <div class="col mx-auto">
+        <div class="col m-2">
             <div class="card card-courses shadow-sm mx-auto">
                 {% if course.thumbnail %}
                 <img src="{{course.thumbnail.url}}" class="card-img-top" alt="{{course.title}}">

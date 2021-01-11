@@ -17,15 +17,16 @@ def plans(request):
     return render(request, 'purchase/plans.html', context)
 
 
-def purchasePlan(request):
+def purchasePlan(request, plan_id):
     """ A view to buy a plan """
-
+    plan = Plan.objects.get(id=plan_id)
     form = ExtendedUserCreationForm()
     profileForm = UserProfileForm()
 
     context = {
         'form': form,
         'profileForm': profileForm,
+        'plan': plan,
         'stripe_public_key': 'pk_test_51HxBfnEz5cJqldVxRK4MUQHAaBJlUJOy911vphGfdlxBFkVaCtP2LjQIJCvPm1udTClUwwte7du2vSODhWds5Tr600Br24qJe6',
     }
 
@@ -37,13 +38,13 @@ def signup(request):
 
         formData = ExtendedUserCreationForm(request.POST)
         profileForm = UserProfileForm(request.POST)
+        plan = Plan.objects.get(id=request.POST.get('plan.id'))
 
-        context = {'form': formData, 'profileForm': profileForm}
+        context = {'form': formData, 'profileForm': profileForm, 'plan': plan}
 
         if formData.is_valid() and profileForm.is_valid():
 
             user = formData.save()
-            plan = get_object_or_404(Plan, pk=request.POST.get("plan"))
 
             profile = profileForm.save(commit=False)
             profile.user = user
