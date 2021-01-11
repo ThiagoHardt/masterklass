@@ -37,8 +37,8 @@ def signup(request):
     if request.method == 'POST':
 
         formData = ExtendedUserCreationForm(request.POST)
-        profileForm = UserProfileForm(request.POST)
-        plan = Plan.objects.get(id=request.POST.get('plan.id'))
+        plan = Plan.objects.get(id=request.POST.get('planId'))
+        profileForm = UserProfileForm(plan)
 
         context = {'form': formData, 'profileForm': profileForm, 'plan': plan}
 

@@ -47,11 +47,6 @@ class ExtendedUserCreationForm(UserCreationForm):
 
 class UserProfileForm(forms.ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['plan'].required = True
-        self.fields['plan'].label = False
-
     class Meta:
         model = UserProfile
         fields = ("plan",)
