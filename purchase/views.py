@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout
 from .models import Plan
+from django.conf import settings
 from .forms import ExtendedUserCreationForm, UserProfileForm
+import stripe
 
 
 # Create your views here.
@@ -22,27 +24,44 @@ def purchasePlan(request, plan_id):
     plan = Plan.objects.get(pk=plan_id)
     form = ExtendedUserCreationForm()
     profileForm = UserProfileForm()
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
 
     context = {
         'form': form,
         'profileForm': profileForm,
         'plan': plan,
-        'stripe_public_key': 'pk_test_51HxBfnEz5cJqldVxRK4MUQHAaBJlUJOy911vphGfdlxBFkVaCtP2LjQIJCvPm1udTClUwwte7du2vSODhWds5Tr600Br24qJe6',
+        'stripe_public_key': stripe_public_key,
     }
 
     return render(request, 'purchase/purchase_plan.html', context)
 
 
 def signup(request):
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+
     if request.method == 'POST':
 
         formData = ExtendedUserCreationForm(request.POST)
         plan = Plan.objects.get(pk=request.POST.get('planId'))
         profileForm = UserProfileForm(request.POST)
 
-        context = {'form': formData, 'profileForm': profileForm, 'plan': plan}
+        stripe.api_key = stripe_secret_key
+
+        context = {
+            'form': formData,
+            'profileForm': profileForm,
+            'plan': plan,
+            'stripe_public_key': stripe_public_key,
+        }
 
         if formData.is_valid() and profileForm.is_valid():
+
+            intent = stripe.PaymentIntent.create(
+                amount=int(plan.price)*100,
+                currency=settings.STRIPE_CURRENCY,
+            )
 
             user = formData.save()
             profile = profileForm.save(commit=False)
