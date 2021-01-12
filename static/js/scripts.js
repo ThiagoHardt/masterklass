@@ -2,8 +2,10 @@ $(document).ready(function() {
     $('.carousel').carousel({
         interval: 3000
     });
-
-
+    $('.toast').toast({
+        delay: 3000,
+    });
+    $('.toast').toast('show')
     // ############################ Stripe ##############################################
     
     var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
@@ -45,34 +47,5 @@ $(document).ready(function() {
             $('#submit-button').attr('disabled', false);
         }
     });
-
-    // // Handle form submit
-    // var form = document.getElementById('signupForm');
-
-    // form.addEventListener('submit', function(ev) {
-    //     ev.preventDefault();
-    //     $('#submit-button').attr('disabled', true);
-    //     stripe.confirmCardPayment(clientSecret, {
-    //         payment_method: {
-    //             card: card,
-    //         }
-    //     }).then(function(result) {
-    //         if (result.error) {
-    //             var errorDiv = document.getElementById('card-errors');
-    //             var html = `
-    //                 <span class="icon" role="alert">
-    //                 <i class="fas fa-times"></i>
-    //                 </span>
-    //                 <span>${result.error.message}</span>`;
-    //             $(errorDiv).html(html);
-    //             card.update({ 'disabled': false});
-    //             $('#submit-button').attr('disabled', false);
-    //         } else {
-    //             if (result.paymentIntent.status === 'succeeded') {
-    //                 form.submit();
-    //             }
-    //         }
-    //     });
-    // });
 });
   

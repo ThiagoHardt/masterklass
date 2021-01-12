@@ -128,4 +128,9 @@ a:hover {
   transition: box-shadow 150ms ease;
 }
 
-
+.toast-container {
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    z-index: 1;
+}

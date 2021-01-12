@@ -70,7 +70,8 @@ def signup(request):
             profile.save()
 
             logout(request)
-
+            message = "Account created successfully, please login."
+            messages.success(request, message)
             return redirect("account_login")
 
     return render(request, 'purchase/purchase_plan.html', context)
