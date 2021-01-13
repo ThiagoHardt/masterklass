@@ -24,14 +24,21 @@ def purchasePlan(request, plan_id):
     plan = Plan.objects.get(pk=plan_id)
     form = ExtendedUserCreationForm()
     profileForm = UserProfileForm()
+
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+    stripe.api_key = stripe_secret_key
+    intent = stripe.PaymentIntent.create(
+        amount=int(plan.price)*100,
+        currency=settings.STRIPE_CURRENCY,
+    )
 
     context = {
         'form': form,
         'profileForm': profileForm,
         'plan': plan,
         'stripe_public_key': stripe_public_key,
+        'client_secret': intent.client_secret,
     }
 
     return render(request, 'purchase/purchase_plan.html', context)
@@ -46,7 +53,6 @@ def signup(request):
         formData = ExtendedUserCreationForm(request.POST)
         plan = Plan.objects.get(pk=request.POST.get('planId'))
         profileForm = UserProfileForm(request.POST)
-
         stripe.api_key = stripe_secret_key
 
         context = {
@@ -57,11 +63,6 @@ def signup(request):
         }
 
         if formData.is_valid() and profileForm.is_valid():
-
-            intent = stripe.PaymentIntent.create(
-                amount=int(plan.price)*100,
-                currency=settings.STRIPE_CURRENCY,
-            )
 
             user = formData.save()
             profile = profileForm.save(commit=False)

@@ -47,5 +47,31 @@ $(document).ready(function() {
             $('#submit-button').attr('disabled', false);
         }
     });
+    // Handle form submit
+    var form = document.getElementById('signupForm');
+
+    form.addEventListener('submit', function(ev) {
+        ev.preventDefault();
+        card.update({ 'disabled': true});
+        $('#submit-button').attr('disabled', true);
+        stripe.confirmCardPayment(clientSecret, {payment_method: {card: card}
+        }).then(function(response) {
+            if (response.error) {
+                var errorDiv = document.getElementById('card-errors');
+                var html = `
+                    <span class="icon small" role="alert">
+                    <i class="fas fa-times"></i>
+                    </span>
+                    <span class="small">${response.error.message}</span>`;
+                $(errorDiv).html(html);
+                card.update({ 'disabled': false});
+                $('#submit-button').attr('disabled', false);
+            } else {
+                if (response.paymentIntent.status === 'succeeded') {
+                    form.submit();
+                }
+            }
+        });
+    });
 });
   
