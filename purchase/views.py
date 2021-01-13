@@ -45,6 +45,8 @@ def purchasePlan(request, plan_id):
 
 
 def signup(request):
+    """ Create a user if payment is successful """
+
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 

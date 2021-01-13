@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<div class="row align-items-center">
+    <div class="col">
+        <h2 class="text-center mt-5">Hello, {{userProfile.name}}</h2>
+        <hr class="linebreak mb-5" />
+        <div class="container">
+            <div class="card shadow-sm mx-auto">
+
+                {% if userProfile.profile_picture %}
+                <img src="{{userProfile.profile_picture.url}}" class="profile-picture mx-auto mt-3"
+                    alt="{{userProfile.name}}">
+                {% else %}
+                <img src="{{ MEDIA_URL }}default-image.png" class="profile-picture mx-auto mt-3"
+                    alt="{{userProfile.name}}">
+                {% endif %}
+                <div class="card-body">
+                    <div class="row text-center">
+                        <hr class="linebreak mb-2" />
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="email">Email</label>
+                            <p id="email" name="email">{{userProfile.user.email}}</p>
+                        </div>
+                        <p>{{userProfile.user.username}}</p>
+                    </div>
+                    <a class="btn btn-primary" href="{% url 'account_change_password' %}">Change Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

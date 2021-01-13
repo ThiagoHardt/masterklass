@@ -134,3 +134,17 @@ a:hover {
     right: 10px;
     z-index: 1;
 }
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  .profile-picture > img {
+      width: 150px;
+  }
