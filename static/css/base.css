@@ -29,6 +29,10 @@ a:hover {
     text-decoration: none;
 }
 
+label {
+    font-size: 12px;
+}
+
 .row, .col {
     margin: 0;
     padding: 0;

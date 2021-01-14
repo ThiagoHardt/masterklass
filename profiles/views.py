@@ -1,26 +1,29 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile
 from .forms import UpdateUserForm, UpdateUserProfileForm
-# Create your views here.
 
 
 @login_required
-def getUserProfile(request, user_id):
-    """ A view to show all lessons within a course """
-
-    userProfile = get_object_or_404(UserProfile, user_id=user_id)
-
-    context = {
-        'userProfile': userProfile,
-    }
-
-    return render(request, 'profiles/user_profile.html', context)
-
-
 def profile(request):
-    userForm = UpdateUserForm()
-    profileForm = UpdateUserProfileForm()
+    """ A view to view and edit user profiles """
+
+    if request.method == 'POST':
+
+        userForm = UpdateUserForm(request.POST, instance=request.user)
+        profileForm = UpdateUserProfileForm(
+            request.POST, request.FILES, instance=request.user.userprofile)
+        if userForm.is_valid() and profileForm.is_valid():
+
+            userForm.save()
+            profileForm.save()
+            message = "Profile updated successfully."
+            messages.success(request, message)
+
+            return redirect("profile")
+    else:
+        userForm = UpdateUserForm(instance=request.user)
+        profileForm = UpdateUserProfileForm(instance=request.user.userprofile)
 
     context = {
         "userForm": userForm,

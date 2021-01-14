@@ -6,17 +6,25 @@
         <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    {{user}}
-                    <img src="{{userProfile.profile_picture.url}}" class="profile-picture mx-auto mt-3"
-                        alt="{{userProfile.name}}">
+                    <div class="row">
+                        <img src="{{user.userprofile.profile_picture.url}}" class="profile-picture mx-auto mt-2 mb-5"
+                            alt="{{user}}">
+                    </div>
                     <form action="" method="POST" id="updateUserFor" name="updateUserFor" encType="multipart/form-data">
                         {% csrf_token %}
-                        <fieldset class="px-3 mb-5">
+                        <fieldset class="px-1 mb-5">
                             <legend class="fieldset-label small text-black w-auto mb-3">Personal Details</legend>
                             {{ userForm|crispy }}
                             {{ profileForm|crispy }}
-
                         </fieldset>
+                        <fieldset class="px-1 mb-5">
+                            <legend class="fieldset-label small text-black w-auto mb-3">Subscription Details</legend>
+                            <label for="planType">Current Subscription</label>
+                            <h5 id="planType">{{user.userprofile.plan}}</h5>
+                            <label for="dateJoined">Joined</label>
+                            <h5 id="dateJoined">{{user.userprofile.date_joined|date:"d, F, Y"}}</h5>
+                        </fieldset>
+                        <button type="submit" class="btn btn-warning float-right mt-3">Update</button>
 
                     </form>
                 </div>
