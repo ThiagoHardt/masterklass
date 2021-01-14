@@ -19,7 +19,8 @@ class Course(models.Model):
         "Category", null=True, blank=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=155)
     description = models.TextField(max_length=1024)
-    thumbnail = models.ImageField(null=True, blank=True)
+    thumbnail = models.ImageField(
+        default="default-image.png", upload_to='media')
 
     def __str__(self):
         return self.title
@@ -35,7 +36,6 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     position = models.IntegerField()
     video_url = models.URLField(max_length=1024, null=True, blank=True)
-    thumbnail = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.title
