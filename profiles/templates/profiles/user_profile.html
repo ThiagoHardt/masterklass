@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <img src="{{user.userprofile.profile_picture.url}}" class="profile-picture mx-auto mt-2 mb-5"
-                            alt="{{user}}">
+                        <img src="{{user.userprofile.profile_picture.url}}"
+                            class="profile-picture mx-auto mt-2 mb-5 shadow" alt="{{user}}">
                     </div>
                     <form action="" method="POST" id="updateUserFor" name="updateUserFor" encType="multipart/form-data">
                         {% csrf_token %}
@@ -25,8 +25,15 @@
                             <h5 id="dateJoined">{{user.userprofile.date_joined|date:"d, F, Y"}}</h5>
                         </fieldset>
                         <button type="submit" class="btn btn-warning float-right mt-3">Update</button>
-
+                        <a href="{% url 'account_change_password' %}" type="submit"
+                            class="btn btn-danger float-right mt-3 mr-3">Change Password</a>
                     </form>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="small d-flex justify-content-center mb-3"
+                            href="{% url 'account_reset_password' %}">Want to close your account?</a>
+                    </div>
                 </div>
             </div>
         </div>
