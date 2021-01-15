@@ -33,6 +33,10 @@ label {
     font-size: 12px;
 }
 
+.link {
+    cursor: pointer;
+}
+
 .row, .col {
     margin: 0;
     padding: 0;

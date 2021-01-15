@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% load static %} {% block content %} {% load crispy_forms_tags %}
+<h3 class="text-center mt-5">Categories</h3>
+<hr class="linebreak mb-5" />
+<div class="container mb-5">
+    <div class="row align-items-center">
+        <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <thead class="thead-dark text-center">
+                            <tr>
+                                <th scope="col">Slug</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            {% for category in categories %}
+                            <tr>
+                                <td scope="col">{{category.slug}}</td>
+                                <td scope="col">{{category.name}}</td>
+                                <td>
+                                    <a class="link" data-toggle="modal" data-target="#categoryModal"
+                                        onClick="showValuesInModal('{{ category.slug }}','{{ category.name }}', '{{ category.id }}')"><i
+                                            class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-sm btn-warning float-right mt-3" data-toggle="modal"
+                        data-target="#categoryModal" onClick="clearValuesInModal()">
+                        New Category
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Category Modal -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="categoryModalLabel">New Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" id="updateCategoryForm" name="updateCategoryForm">
+                    {% csrf_token %}
+                    {{ categoryForm|crispy }}
+                    <div class="modal-footer p-0">
+                        <button hidden id="deleteBtn" name="deleteBtn" value="Delete"
+                            class="btn btn-sm btn-danger float-right mt-3">Delete
+                            Category</button>
+                        <button id="addBtn" name="addBtn" type="submit" value="Save"
+                            class="btn btn-sm btn-warning float-right mt-3">Add
+                            Category</button>
+                        <button hidden id="updateBtn" name="updateBtn" value="Update"
+                            class="btn btn-sm btn-warning float-right mt-3">Update
+                            Category</button>
+                        <input type="hidden" name="categoryId" id="categoryId" value"">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

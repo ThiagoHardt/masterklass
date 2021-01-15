@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% load static %} {% block content %} {% load crispy_forms_tags %}
+<h3 class="text-center mt-5">Courses</h3>
+<hr class="linebreak mb-5" />
+<div class="container mb-5">
+    <div class="row align-items-center">
+        <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <form action="" method="POST" id="updateUserFor" name="updateUserFor" encType="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="px-1 mb-5">
+                            <legend class="fieldset-label small text-black w-auto mb-3">Category</legend>
+                            {{ categoryForm|crispy }}
+                            <button type="submit" class="btn btn-sm btn-warning float-right mt-3">Add Category</button>
+                        </fieldset>
+                        <fieldset class="px-1 mb-5">
+                            <legend class="fieldset-label small text-black w-auto mb-3">Course</legend>
+                            {{ courseForm|crispy }}
+                            <button type="submit" class="btn btn-sm btn-warning float-right mt-3">Add Course</button>
+                        </fieldset>
+                        <fieldset class="px-1 mb-5">
+                            <legend class="fieldset-label small text-black w-auto mb-3">Lesson</legend>
+                            {{ lessonForm|crispy }}
+                            <button type="submit" class="btn btn-sm btn-warning float-right mt-3">Add Lesson</button>
+                        </fieldset>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

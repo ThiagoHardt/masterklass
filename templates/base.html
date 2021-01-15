@@ -21,15 +21,26 @@
     <div class="collapse navbar-collapse" id="navbarToggler">
       <a class="navbar-brand logo" href="{% url 'home' %}">MasterKlass</a>
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        {% if user.is_staff or user.is_superuser %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Manage Courses</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'manage_category' %}">Categories</a>
+            <a class="dropdown-item" href="{% url 'add_course' %}">Courses</a>
+            <a class="dropdown-item" href="{% url 'add_lesson' %}">Lessons</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+        </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'courses' %}">Courses</a>
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
         </li>
         {% else %}
         <li class="nav-item">

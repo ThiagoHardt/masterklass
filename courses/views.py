@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib import messages
 from django.db.models import Q
 from .models import Course, Lesson, Category
+from .forms import UpdateCourseForm, UpdateCategoryForm, UpdateLessonForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -33,6 +34,7 @@ def getCourses(request):
         "currentCategory": currentCategory,
         "searchTerm": query,
     }
+
     return render(request, "courses/courses.html", context)
 
 
@@ -49,3 +51,102 @@ def courseDetail(request, course_id):
     }
 
     return render(request, 'courses/course_detail.html', context)
+
+
+def manageCategory(request):
+    """ A view to add categories """
+
+    categories = Category.objects.all()
+    categoryForm = UpdateCategoryForm()
+
+    if request.method == "POST":
+        if request.POST.__contains__("addBtn"):
+
+            categoryForm = UpdateCategoryForm(request.POST)
+
+            if categoryForm.is_valid():
+                categoryForm.save()
+
+                message = "Category added successfully."
+                messages.success(request, message)
+
+                return redirect("manage_category")
+
+        elif request.POST.__contains__("updateBtn"):
+
+            category = categories.filter(
+                id=request.POST.get('categoryId')).first()
+            categoryForm = UpdateCategoryForm(request.POST, instance=category)
+
+            if categoryForm.is_valid():
+                categoryForm.save()
+
+                message = "Category updated successfully."
+                messages.success(request, message)
+
+                return redirect("manage_category")
+
+        elif request.POST.__contains__("deleteBtn"):
+
+            category = categories.filter(
+                id=request.POST.get('categoryId')).delete()
+
+            message = "Category deleted successfully."
+            messages.success(request, message)
+
+            return redirect("manage_category")
+    else:
+        categoryForm = UpdateCategoryForm()
+
+    context = {
+        "categories": categories,
+        "categoryForm": categoryForm,
+    }
+
+    return render(request, "courses/manage_category.html", context)
+
+
+def addCourse(request):
+    """ A view to add courses, categories and lessons """
+
+    categories = Category.objects.all()
+    courses = Course.objects.all()
+    lessons = Lesson.objects.all()
+
+    courseForm = UpdateCourseForm()
+    categoryForm = UpdateCategoryForm()
+    lessonForm = UpdateLessonForm()
+
+    context = {
+        "courses": courses,
+        "categories": categories,
+        "lessons": lessons,
+        "courseForm": courseForm,
+        "categoryForm": categoryForm,
+        "lessonForm": lessonForm,
+    }
+
+    return render(request, "courses/add_course.html", context)
+
+
+def addLesson(request):
+    """ A view to add courses, categories and lessons """
+
+    categories = Category.objects.all()
+    courses = Course.objects.all()
+    lessons = Lesson.objects.all()
+
+    courseForm = UpdateCourseForm()
+    categoryForm = UpdateCategoryForm()
+    lessonForm = UpdateLessonForm()
+
+    context = {
+        "courses": courses,
+        "categories": categories,
+        "lessons": lessons,
+        "courseForm": courseForm,
+        "categoryForm": categoryForm,
+        "lessonForm": lessonForm,
+    }
+
+    return render(request, "courses/add_lesson.html", context)

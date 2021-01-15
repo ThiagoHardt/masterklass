@@ -6,6 +6,7 @@ $(document).ready(function() {
         delay: 3000,
     });
     $('.toast').toast('show')
+
     // ############################ Stripe ##############################################
     
     var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
@@ -73,5 +74,27 @@ $(document).ready(function() {
             }
         });
     });
+
 });
+
+function showValuesInModal(slug, name, id){
+    document.getElementById('categoryId').value = id
+    document.getElementById('id_slug').value = slug
+    document.getElementById('id_name').value = name
+    document.getElementById('deleteBtn').hidden= false;
+    document.getElementById('updateBtn').hidden= false;
+    document.getElementById('addBtn').hidden= true;
+    $("#CategoryModal").modal("show");
+}
+
+function clearValuesInModal(){
+    document.getElementById('categoryId').value = ""
+    document.getElementById('id_slug').value = ""
+    document.getElementById('id_name').value = ""
+    document.getElementById('deleteBtn').hidden= true;
+    document.getElementById('updateBtn').hidden= true;
+    document.getElementById('addBtn').hidden= false;
+    $("#CategoryModal").modal("show");
+}
+
   
