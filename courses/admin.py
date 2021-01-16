@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Course, Lesson, Category
+from .models import Course, Lesson, Category, Comment
 
 
 class CourseAdmin(admin.ModelAdmin):
@@ -18,6 +18,11 @@ class LessonAdmin(admin.ModelAdmin):
     ordering = ("course",)
 
 
+class CommentAdmin(admin.ModelAdmin):
+    readonly_fields = ('created_on',)
+
+
 admin.site.register(Category)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
+admin.site.register(Comment, CommentAdmin)

@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} {% load static %} {% block content %} {% load crispy_forms_tags %}
 
 <div class="row text-center mt-3 p-2 mx-auto">
     <h3 class="p">Welcome to the {{course.title}} course</h3>
@@ -28,33 +28,44 @@
 </div>
 <hr class="linebreak" />
 <div class="container">
-    <div class="row">
-        <h5>Comments <i class="fas fa-comment-dots"></i></h5>
-        <div class="row">
-            <div class="col">
-                <div class="card m-3">
-                    <div class="card-body">
-                        <form action="">
-                            <div class="form-group">
-                                <label for="newComment">Add a new comment</label>
-                                <textarea class="form-control" id="newComment" rows="3"></textarea>
-                            </div>
-                            <button class="btn btn-sm btn-warning float-right" type="submit">Comment</button>
-                            <button class="btn btn-sm btn-secondary float-right mr-2" type="reset">Cancel</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="card m-3">
-                    <div class="card-body">
-                        <div class="pill-user mb-4">
-                            <p class="p-0 m-0 card-text">User Demo</p>
-                        </div>
-                        <p class="card-text"><small class="text-muted">Posted 20/20/2020</small></p>
-                        <p>{% lorem 3 b random %}</p>
-                    </div>
-                </div>
+    <div class="row m-3">
+        <div class="col">
+            <h5 class="text-center">Comments <i class="fas fa-comment-dots"></i></h5>
+        </div>
+    </div>
+</div>
+{% if user.is_authenticated%}
+<div class="row">
+    <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="POST" id="lessonForm" name="lessonForm">
+                    {% csrf_token %}
+                    {{ commentForm|crispy }}
+                    <button id="updateBtn" name="updateBtn" value="Update" class="btn btn-sm btn-warning float-right"
+                        type="submit">Post Comment</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
+{% endif %}
+{% for comment in comments %}
+<div class="row mt-3 mb-3">
+    <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <p class="font-weight-bold pill-user m-0">{{comment.author}}</p><span
+                    class="small text-muted font-italic">
+                    commented
+                    on:
+                    {{comment.created_on|date:"d, F, Y" }}</span>
+                <p class="p-3 m-0">{{comment.body}}</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
 {% endblock %}

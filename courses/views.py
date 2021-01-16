@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib import messages
 from django.db.models import Q
-from .models import Course, Lesson, Category
-from .forms import CourseForm, UpdateCategoryForm, LessonForm
+from .models import Course, Lesson, Category, Comment
+from .forms import CourseForm, UpdateCategoryForm, LessonForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -46,10 +46,27 @@ def courseDetail(request, course_id):
 
     course = get_object_or_404(Course, id=course_id)
     lessons = Lesson.objects.filter(course=course).order_by('position')
+    comments = Comment.objects.filter(course=course)
+
+    if request.method == 'POST':
+
+        commentForm = CommentForm(request.POST)
+        if commentForm.is_valid():
+            newComment = commentForm.save(commit=False)
+            newComment.author = request.user
+            newComment.course = course
+
+            newComment.save()
+
+            return redirect("course_detail", course.id)
+    else:
+        commentForm = CommentForm()
 
     context = {
         'course': course,
         'lessons': lessons,
+        'comments': comments,
+        'commentForm': commentForm,
     }
 
     return render(request, 'courses/course_detail.html', context)

@@ -103,6 +103,11 @@ label {
     border-radius: 50px;
 }
 
+.pill-user {
+    background-color: #727272;
+    border-radius: 50px;
+}
+
 .card-courses {
     width: 230px;
     height: 300px;

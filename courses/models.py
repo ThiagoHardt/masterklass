@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -41,7 +42,15 @@ class Lesson(models.Model):
         return self.title
 
 
-# class Comment(models.Model):
-#     user = models.ForeignKey(User, null=True, blank=True)
-#     date = models.DateTimeField(auto_now=True)
-#     message = models.TextField(max_length=1024, blank=True)
+class Comment(models.Model):
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name='comments', default=None)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment by {}'.format(self.author)
