@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib import messages
 from django.db.models import Q
 from .models import Course, Lesson, Category
-from .forms import CourseForm, UpdateCategoryForm, UpdateLessonForm
+from .forms import CourseForm, UpdateCategoryForm, LessonForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -109,6 +109,8 @@ def manageCategory(request):
     return render(request, "courses/manage_category.html", context)
 
 
+@staff_member_required
+@login_required
 def manageCourse(request):
     """ A view to manage a course """
 
@@ -123,6 +125,8 @@ def manageCourse(request):
     return render(request, "courses/manage_course.html", context)
 
 
+@staff_member_required
+@login_required
 def addCourse(request):
     """ A view to add a course """
 
@@ -146,6 +150,8 @@ def addCourse(request):
     return render(request, "courses/add_course.html", context)
 
 
+@staff_member_required
+@login_required
 def updateCourse(request, id):
     """ A view to update and delete a course """
 
@@ -179,3 +185,81 @@ def updateCourse(request, id):
     }
 
     return render(request, "courses/update_course.html", context)
+
+
+@staff_member_required
+@login_required
+def manageLesson(request):
+    """ A view to manage a course """
+
+    courses = Course.objects.all()
+    lessons = Lesson.objects.all()
+
+    context = {
+        "courses": courses,
+        "lessons": lessons,
+    }
+
+    return render(request, "courses/manage_lesson.html", context)
+
+
+@staff_member_required
+@login_required
+def addLesson(request):
+    """ A view to add a course """
+
+    lessonForm = LessonForm()
+    if request.method == "POST":
+
+        lessonForm = LessonForm(request.POST)
+
+        if lessonForm.is_valid():
+            lessonForm.save()
+
+            message = "Lesson added successfully."
+            messages.success(request, message)
+
+            return redirect("manage_lesson")
+
+    context = {
+        "lessonForm": lessonForm,
+    }
+
+    return render(request, "courses/add_lesson.html", context)
+
+
+@staff_member_required
+@login_required
+def updateLesson(request, id):
+    """ A view to update and delete a course """
+
+    lesson = get_object_or_404(Lesson, pk=id)
+    lessonForm = LessonForm()
+
+    if request.method == "POST":
+        if request.POST.__contains__("updateBtn"):
+            lessonForm = LessonForm(request.POST, instance=lesson)
+
+            if lessonForm.is_valid():
+                lessonForm.save()
+
+                message = "Lesson updated successfully."
+                messages.success(request, message)
+
+                return redirect("manage_lesson")
+
+        elif request.POST.__contains__("deleteBtn"):
+            lesson.delete()
+
+            message = "Lesson deleted successfully."
+            messages.success(request, message)
+
+            return redirect("manage_lesson")
+    else:
+        lessonForm = LessonForm(instance=lesson)
+
+    context = {
+        "lessonForm": lessonForm,
+    }
+
+    return render(request, "courses/update_lesson.html", context)

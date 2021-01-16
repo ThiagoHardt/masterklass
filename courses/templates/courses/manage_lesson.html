@@ -1,30 +1,41 @@
 {% extends "base.html" %} {% load static %} {% block content %} {% load crispy_forms_tags %}
-<h3 class="text-center mt-5">Courses</h3>
+<h3 class="text-center mt-5">Manage Lessons</h3>
 <hr class="linebreak mb-5" />
 <div class="container mb-5">
     <div class="row align-items-center">
         <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <form action="" method="POST" id="updateUserFor" name="updateUserFor" encType="multipart/form-data">
-                        {% csrf_token %}
-                        <fieldset class="px-1 mb-5">
-                            <legend class="fieldset-label small text-black w-auto mb-3">Category</legend>
-                            {{ categoryForm|crispy }}
-                            <button type="submit" class="btn btn-sm btn-warning float-right mt-3">Add Category</button>
-                        </fieldset>
-                        <fieldset class="px-1 mb-5">
-                            <legend class="fieldset-label small text-black w-auto mb-3">Course</legend>
-                            {{ courseForm|crispy }}
-                            <button type="submit" class="btn btn-sm btn-warning float-right mt-3">Add Course</button>
-                        </fieldset>
-                        <fieldset class="px-1 mb-5">
-                            <legend class="fieldset-label small text-black w-auto mb-3">Lesson</legend>
-                            {{ lessonForm|crispy }}
-                            <button type="submit" class="btn btn-sm btn-warning float-right mt-3">Add Lesson</button>
-                        </fieldset>
-
-                    </form>
+                    <div class="input-group mb-4">
+                        <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+                            onkeyup="filterTableLessons()" id="searchLesson">
+                    </div>
+                    <table class="table table-sm table-hover" id="tableLessons">
+                        <thead class="thead-dark text-center">
+                            <tr>
+                                <th scope="col">Slug</th>
+                                <th scope="col">Lesson Title</th>
+                                <th scope="col">Course</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            {% for lesson in lessons %}
+                            <tr>
+                                <td scope="col">{{lesson.slug}}</td>
+                                <td scope="col">{{lesson.title}}</td>
+                                <td scope="col">{{lesson.course}}</td>
+                                <td>
+                                    <a class="link" href="{% url 'update_lesson' lesson.id %}"><i
+                                            class="fas fa-edit"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="{% url 'add_lesson' %}" class="btn btn-sm btn-warning float-right mt-3">
+                        New Lesson
+                    </a>
                 </div>
             </div>
         </div>

@@ -14,7 +14,7 @@ class UpdateCategoryForm(forms.ModelForm):
         fields = ["slug", "name"]
 
 
-class UpdateLessonForm(forms.ModelForm):
+class LessonForm(forms.ModelForm):
     class Meta():
         model = Lesson
         fields = ["slug", "title", "course", "position", "video_url"]

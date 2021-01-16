@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% load static %} {% block content %} {% load crispy_forms_tags %}
+<h3 class="text-center mt-5">Update Lesson</h3>
+<hr class="linebreak mb-5" />
+<div class="container mb-5">
+    <div class="row align-items-center">
+        <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <form action="" method="POST" id="lessonForm" name="lessonForm">
+                        {% csrf_token %}
+                        {{ lessonForm|crispy }}
+                        <div class="modal-footer p-0">
+                            <button id="deleteBtn" name="deleteBtn" value="Delete"
+                                class="btn btn-sm btn-danger float-right mt-3">Delete
+                                Lesson</button>
+                            <button id="updateBtn" name="updateBtn" value="Update"
+                                class="btn btn-sm btn-warning float-right mt-3" type="submit">Update Lesson</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -156,3 +156,7 @@ label {
   .profile-picture > img {
       width: 150px;
   }
+
+  tr.collapse.in {
+    display:table-row;
+  }
