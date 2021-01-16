@@ -27,12 +27,9 @@
             aria-haspopup="true" aria-expanded="false">Manage Courses</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="{% url 'manage_category' %}">Categories</a>
-            <a class="dropdown-item" href="{% url 'add_course' %}">Courses</a>
-            <a class="dropdown-item" href="{% url 'add_lesson' %}">Lessons</a>
+            <a class="dropdown-item" href="{% url 'manage_course' %}">Courses</a>
+            {% comment %} <a class="dropdown-item" href="{% url 'add_lesson' %}">Lessons</a> {% endcomment %}
           </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
         </li>
         {% endif %}
         <li class="nav-item">
@@ -41,6 +38,9 @@
         {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
         </li>
         {% else %}
         <li class="nav-item">

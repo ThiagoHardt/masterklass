@@ -2,10 +2,10 @@ from django import forms
 from .models import Course, Category, Lesson
 
 
-class UpdateCourseForm(forms.ModelForm):
+class CourseForm(forms.ModelForm):
     class Meta():
         model = Course
-        fields = ["category", "title", "description", "thumbnail"]
+        fields = ["title", "category", "description", "thumbnail"]
 
 
 class UpdateCategoryForm(forms.ModelForm):
@@ -17,4 +17,4 @@ class UpdateCategoryForm(forms.ModelForm):
 class UpdateLessonForm(forms.ModelForm):
     class Meta():
         model = Lesson
-        fields = ["id", "slug", "title", "course", "position", "video_url"]
+        fields = ["slug", "title", "course", "position", "video_url"]

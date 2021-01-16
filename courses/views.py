@@ -2,12 +2,14 @@ from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib import messages
 from django.db.models import Q
 from .models import Course, Lesson, Category
-from .forms import UpdateCourseForm, UpdateCategoryForm, UpdateLessonForm
+from .forms import CourseForm, UpdateCategoryForm, UpdateLessonForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 def getCourses(request):
-    """A view to return a list of all courses."""
+    """A view to return a list of all courses. Can be filtered passing a query string."""
+
     currentCategory = Category.objects.all()
     categories = Category.objects.all()
     courses = Course.objects.all()
@@ -53,8 +55,10 @@ def courseDetail(request, course_id):
     return render(request, 'courses/course_detail.html', context)
 
 
+@staff_member_required
+@login_required
 def manageCategory(request):
-    """ A view to add categories """
+    """ A view to create, update and delete a category. """
 
     categories = Category.objects.all()
     categoryForm = UpdateCategoryForm()
@@ -88,8 +92,7 @@ def manageCategory(request):
 
         elif request.POST.__contains__("deleteBtn"):
 
-            category = categories.filter(
-                id=request.POST.get('categoryId')).delete()
+            categories.filter(id=request.POST.get('categoryId')).delete()
 
             message = "Category deleted successfully."
             messages.success(request, message)
@@ -106,47 +109,73 @@ def manageCategory(request):
     return render(request, "courses/manage_category.html", context)
 
 
-def addCourse(request):
-    """ A view to add courses, categories and lessons """
+def manageCourse(request):
+    """ A view to manage a course """
 
     categories = Category.objects.all()
     courses = Course.objects.all()
-    lessons = Lesson.objects.all()
-
-    courseForm = UpdateCourseForm()
-    categoryForm = UpdateCategoryForm()
-    lessonForm = UpdateLessonForm()
 
     context = {
         "courses": courses,
         "categories": categories,
-        "lessons": lessons,
+    }
+
+    return render(request, "courses/manage_course.html", context)
+
+
+def addCourse(request):
+    """ A view to add a course """
+
+    courseForm = CourseForm()
+    if request.method == "POST":
+
+        courseForm = CourseForm(request.POST)
+
+        if courseForm.is_valid():
+            courseForm.save()
+
+            message = "Course added successfully."
+            messages.success(request, message)
+
+            return redirect("manage_course")
+
+    context = {
         "courseForm": courseForm,
-        "categoryForm": categoryForm,
-        "lessonForm": lessonForm,
     }
 
     return render(request, "courses/add_course.html", context)
 
 
-def addLesson(request):
-    """ A view to add courses, categories and lessons """
+def updateCourse(request, id):
+    """ A view to update and delete a course """
 
-    categories = Category.objects.all()
-    courses = Course.objects.all()
-    lessons = Lesson.objects.all()
+    course = get_object_or_404(Course, pk=id)
+    courseForm = CourseForm()
 
-    courseForm = UpdateCourseForm()
-    categoryForm = UpdateCategoryForm()
-    lessonForm = UpdateLessonForm()
+    if request.method == "POST":
+        if request.POST.__contains__("updateBtn"):
+            courseForm = CourseForm(request.POST, instance=course)
+
+            if courseForm.is_valid():
+                courseForm.save()
+
+                message = "Course updated successfully."
+                messages.success(request, message)
+
+                return redirect("manage_course")
+
+        elif request.POST.__contains__("deleteBtn"):
+            course.delete()
+
+            message = "Course deleted successfully."
+            messages.success(request, message)
+
+            return redirect("manage_course")
+    else:
+        courseForm = CourseForm(instance=course)
 
     context = {
-        "courses": courses,
-        "categories": categories,
-        "lessons": lessons,
         "courseForm": courseForm,
-        "categoryForm": categoryForm,
-        "lessonForm": lessonForm,
     }
 
-    return render(request, "courses/add_lesson.html", context)
+    return render(request, "courses/update_course.html", context)
