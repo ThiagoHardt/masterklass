@@ -6,7 +6,7 @@
         <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <form action="" method="POST" id="courseForm" name="courseForm">
+                    <form action="" method="POST" id="courseForm" name="courseForm" encType="multipart/form-data">
                         {% csrf_token %}
                         {{ courseForm|crispy }}
                         <div class="modal-footer p-0">

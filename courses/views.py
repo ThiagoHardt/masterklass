@@ -150,7 +150,7 @@ def addCourse(request):
     courseForm = CourseForm()
     if request.method == "POST":
 
-        courseForm = CourseForm(request.POST)
+        courseForm = CourseForm(request.POST, request.FILES)
 
         if courseForm.is_valid():
             courseForm.save()
@@ -177,7 +177,8 @@ def updateCourse(request, id):
 
     if request.method == "POST":
         if request.POST.__contains__("updateBtn"):
-            courseForm = CourseForm(request.POST, instance=course)
+            courseForm = CourseForm(
+                request.POST, request.FILES, instance=course)
 
             if courseForm.is_valid():
                 courseForm.save()
