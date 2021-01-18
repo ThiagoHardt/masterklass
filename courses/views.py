@@ -10,29 +10,26 @@ from django.contrib.admin.views.decorators import staff_member_required
 def getCourses(request):
     """A view to return a list of all courses. Can be filtered passing a query string."""
 
-    currentCategory = Category.objects.all()
     categories = Category.objects.all()
+    currentCategory = ""
     courses = Course.objects.all()
-    lessons = Lesson.objects.all()
     query = None
 
     if request.GET:
         if "q" in request.GET:
             query = request.GET["q"]
-            if not query:
-                messages.error(request, "Please enter a search criteria")
-                return redirect(reverse("courses"))
 
             queries = Q(title__icontains=query) | Q(
                 description__icontains=query) | Q(category__slug__icontains=query)
             categoryQ = Q(slug__icontains=query)
             courses = courses.filter(queries)
             currentCategory = categories.filter(categoryQ)
+    else:
+        currentCategory = categories
 
     context = {
         "courses": courses,
         "categories": categories,
-        "lessons": lessons,
         "currentCategory": currentCategory,
         "searchTerm": query,
     }

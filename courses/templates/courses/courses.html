@@ -21,7 +21,7 @@
                 Courses</a>
             {% for category in categories %}
             <a class="btn btn-sm btn-outline-secondary pill m-2"
-                href="{% url 'courses'%}?q={{category.name}}">{{category.name}}</a>
+                href="{% url 'courses'%}?q={{category.slug}}">{{category.name}}</a>
             {% endfor %}
         </div>
     </div>

@@ -8,7 +8,7 @@ $(document).ready(function() {
     $('.toast').toast('show')
 
     // ############################ Stripe ##############################################
-    
+    //!! Move to a separate JS to fix the stripe key error. 
     var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
     var clientSecret = $('#id_client_secret').text().slice(1, -1);
     var stripe = Stripe(stripePublicKey);
