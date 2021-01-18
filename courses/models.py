@@ -37,6 +37,7 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     position = models.IntegerField()
     video_url = models.URLField(max_length=1024, null=True, blank=True)
+    add_on = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.title

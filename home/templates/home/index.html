@@ -34,39 +34,20 @@
     <hr class="linebreak mb-5" />
     <div class="container">
       <div class="card-group">
+        {% for lesson in lessons %}
         <div class="card m-3">
-          <img src="{{ MEDIA_URL }}programmer.jpg" class="card-img-top" alt="..." />
+          <img src="{{lesson.course.thumbnail.url}}" class="card-img-top" alt="..." />
           <div class="card-body">
-            <h5 class="card-title">Algorithms</h5>
-            <p class="card-text">
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
+            <h5 class="card-title text-center">{{lesson.title}}</h5>
+            <p class="card-text font-weight-bold text-center">
+              In the course: {{lesson.course}}
             </p>
+            <p class="small text-muted font-italic text-center">
+              Added on: {{lesson.add_on|date:"d, F, Y" }}</p>
+
           </div>
         </div>
-        <div class="card m-3">
-          <img src="{{ MEDIA_URL }}programmer.jpg" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Algorithms</h5>
-            <p class="card-text">
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </p>
-          </div>
-        </div>
-        <div class="card m-3">
-          <img src="{{ MEDIA_URL }}programmer.jpg" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Algorithms</h5>
-            <p class="card-text">
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </p>
-          </div>
-        </div>
+        {% endfor %}
       </div>
       <div class="col-12 text-center">
         <a class="btn btn-large btn-outline-secondary m-4" href="{% url 'courses' %}">
