@@ -41,7 +41,7 @@ def getCourses(request):
 def courseDetail(request, course_id):
     """ A view to show all lessons within a course """
 
-    course = get_object_or_404(Course, id=course_id)
+    course = get_object_or_404(Course, pk=course_id)
     lessons = Lesson.objects.filter(course=course).order_by('position')
     comments = Comment.objects.filter(course=course)
 
