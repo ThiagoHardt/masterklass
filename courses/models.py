@@ -51,7 +51,7 @@ class Lesson(models.Model):
 
     slug = models.SlugField()
     title = models.CharField(max_length=155)
-    course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
     position = models.IntegerField()
     video_url = models.URLField(max_length=1024, null=True)
     add_on = models.DateField(auto_now=True)
