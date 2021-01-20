@@ -5,6 +5,12 @@ from PIL import Image
 
 
 class UserProfile(models.Model):
+    """
+    User profiles are defined by this model. It extends the User model
+
+    fields: user, plan, date_joined, name, profile_picture
+    required: user, plan, date_joined 
+    """
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     plan = models.ForeignKey(Plan, null=True, blank=True,
                              on_delete=models.SET_NULL, limit_choices_to={'active': True})

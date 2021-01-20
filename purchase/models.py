@@ -8,9 +8,15 @@ PLAN_CHOICES = (
 
 
 class Plan(models.Model):
+    """
+    Plans are defined by this model.
+
+    fields: slug, name, description, price, active
+    required: slug, name, description, price 
+    """
+    slug = models.SlugField(choices=PLAN_CHOICES, default='lifetime')
     name = models.CharField(max_length=255)
     description = models.TextField()
-    slug = models.SlugField(choices=PLAN_CHOICES, default='lifetime')
     price = models.DecimalField(max_digits=6, decimal_places=2)
     active = models.BooleanField(default=False, null=True)
 
