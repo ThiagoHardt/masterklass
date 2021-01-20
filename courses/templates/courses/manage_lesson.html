@@ -33,7 +33,8 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    <a href="{% url 'add_lesson' %}" class="btn btn-sm btn-warning float-right mt-3">
+                    <a href="{% url 'add_lesson' %}" onClick="clearLocalStorage()"
+                        class="btn btn-sm btn-warning float-right mt-3">
                         New Lesson
                     </a>
                 </div>

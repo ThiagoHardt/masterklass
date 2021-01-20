@@ -4,6 +4,15 @@
 <div class="container mb-5">
     <div class="row align-items-center">
         <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <label for="addLesson">Want to add a lesson to this course?</label>
+                    <a href="{% url 'add_lesson' %}" id="addLesson" name="addLesson"
+                        onclick="setCourseLesson('{{course.id}}')" class="btn btn-sm btn-warning float-right"><i
+                            class="fas fa-plus-circle"></i> Add
+                        lesson</a>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <form action="" method="POST" id="courseForm" name="courseForm" encType="multipart/form-data">
@@ -16,6 +25,7 @@
                             <button id="updateBtn" name="updateBtn" value="Update"
                                 class="btn btn-sm btn-warning float-right mt-3" type="submit">Update Course</button>
                         </div>
+                        <input type="hidden" name="courseId" id="courseId" value"{{course.id}}" />
                     </form>
                 </div>
             </div>

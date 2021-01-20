@@ -8,6 +8,23 @@ $(document).ready(function() {
     $('.toast').toast('show')
 });
 
+//Set localStorage with the id of course
+function setCourseLesson(id){
+  window.localStorage.setItem("courseId", id);
+}
+
+function clearLocalStorage(){
+  window.localStorage.removeItem("courseId");
+}
+
+// Set the value of the course to be added on lesson
+window.onload = function() {
+  if (window.location.href.indexOf('/courses/add_lesson/') > -1){    
+    var id = window.localStorage.getItem("courseId");
+    document.getElementById('id_course').value=id;
+  }
+}
+
 // Set values in the modal to updated category
 function showValuesInModal(slug, name, id){
     document.getElementById('categoryId').value = id

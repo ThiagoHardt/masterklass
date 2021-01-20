@@ -197,6 +197,7 @@ def updateCourse(request, id):
 
     context = {
         "courseForm": courseForm,
+        "course": course,
     }
 
     return render(request, "courses/update_course.html", context)
