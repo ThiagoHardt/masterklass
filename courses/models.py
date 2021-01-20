@@ -44,16 +44,16 @@ class Lesson(models.Model):
     Lessons are defined by this model.
 
     fields: slug, title, course, position, video_url and add_on
-    required: slug, title, course, position 
+    required: slug, title, course, position, video_url 
     """
     class Meta:
-        ordering = ("add_on",)
+        ordering = ("-add_on",)
 
     slug = models.SlugField()
     title = models.CharField(max_length=155)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     position = models.IntegerField()
-    video_url = models.URLField(max_length=1024, null=True, blank=True)
+    video_url = models.URLField(max_length=1024, null=True)
     add_on = models.DateField(auto_now=True)
 
     def __str__(self):
@@ -74,7 +74,7 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['created_on']
+        ordering = ['-created_on']
 
     def __str__(self):
         return 'Comment by {}'.format(self.author)
