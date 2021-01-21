@@ -169,9 +169,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 MEDIA_URL = '/media/'
@@ -194,7 +192,7 @@ else:
     EMAIL_PORT = 587
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-    EMAIL_HOST_PASS = os.environ.get('EMAIL_HOST_PASS')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 
 # AWS Bucket Config
