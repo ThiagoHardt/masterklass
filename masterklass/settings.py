@@ -172,7 +172,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 MEDIA_URL = '/media/'
@@ -199,29 +198,26 @@ else:
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 
 # # AWS Bucket Config
-# if 'USE_AWS' in os.environ:
+if 'USE_AWS' in os.environ:
 
-#     # Cache control
-#     AWS_S3_OBJECT_PARAMETERS = {
-#         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
-#         'CacheControl': 'max-age=94608000',
-#     }
+    # Cache control
+    AWS_S3_OBJECT_PARAMETERS = {
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'CacheControl': 'max-age=94608000',
+    }
 
-#     AWS_STORAGE_BUCKET_NAME = 'masterklass-app'
-#     AWS_S3_REGION_NAME = 'eu-west-1'
-#     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-#     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-#     AWS_S3_FILE_OVERWRITE = False
-#     AWS_DEFAULT_ACL = None
-#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_STORAGE_BUCKET_NAME = 'masterklass-app'
+    AWS_S3_REGION_NAME = 'eu-west-1'
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-#     # Static and media files
-#     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-#     STATICFILES_LOCATION = 'static'
-#     SDEFAULTFILES_STORAGE = 'custom_storages.MediaStorage'
-#     MEDIAFILES_LOCATION = 'media'
+    # Static and media files
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    STATICFILES_LOCATION = 'static'
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    MEDIAFILES_LOCATION = 'media'
 
-#     # Override static and media URLs in production
-#     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
-#     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+    # Override static and media URLs in production
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
