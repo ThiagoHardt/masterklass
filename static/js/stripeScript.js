@@ -31,11 +31,11 @@ $(document).ready(function () {
         var errorDiv = document.getElementById('card-errors');
         if (event.error) {
             var html = `
-    <span class="icon small" role="alert">
-        <i class="fas fa-times"></i>
-    </span>
-    <span class="small">${event.error.message}</span>
-`;
+                <span class="icon small" role="alert">
+                <i class="fas fa-times"></i>
+                </span>
+                <span class="small">${event.error.message}</span>
+            `;
             $(errorDiv).html(html);
             $('#submit-button').attr('disabled', true);
         } else {
@@ -60,10 +60,11 @@ $(document).ready(function () {
             if (response.error) {
                 var errorDiv = document.getElementById('card-errors');
                 var html = `
-        <span class="icon small" role="alert">
-        <i class="fas fa-times"></i>
-        </span>
-        <span class="small">${response.error.message}</span>`;
+                    <span class="icon small" role="alert">
+                    <i class="fas fa-times"></i>
+                    </span>
+                    <span class="small">${response.error.message}</span>
+                `;
                 $(errorDiv).html(html);
                 card.update({
                     'disabled': false

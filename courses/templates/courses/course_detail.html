@@ -16,7 +16,8 @@
         <div class="container">
             <div class="col">
                 <div class="card card-lessons shadow-sm mx-auto">
-                    <video controls controlsList="nodownload" src="{{lesson.video_url}}">
+                    <video class="card-video" style="width: 100%;" controls controlsList="nodownload"
+                        src="{{lesson.video_url}}">
                         Sorry, your browser doesn't support embedded videos.
                     </video>
                     <div class="card-body">
@@ -37,7 +38,7 @@
     </div>
 </div>
 {% if user.is_authenticated%}
-<div class="row mb-3">
+<div class="row mb-3 mx-3">
     <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
         <div class="card">
             <div class="card-body">
@@ -53,7 +54,7 @@
 </div>
 {% endif %}
 {% for comment in comments %}
-<div class="row mb-3">
+<div class="row mb-3 mx-3">
     <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
         <div class="card">
             <div class="card-body">
