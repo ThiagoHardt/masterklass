@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout
 from .models import Plan
+from django.contrib.auth.models import User
 from django.conf import settings
+from django.http import JsonResponse
+from django.contrib.auth.password_validation import validate_password
 from .forms import ExtendedUserCreationForm, UserProfileForm
 import stripe
 
@@ -78,3 +81,22 @@ def signup(request):
             return redirect("account_login")
 
     return render(request, 'purchase/purchase_plan.html', context)
+
+
+def preValidadeUser(request):
+
+    username = request.GET.get('username', None)
+    email = request.GET.get('email', None)
+    password1 = request.GET.get('password1', None)
+    password2 = request.GET.get('password2', None)
+    passwordMatch = False
+
+    if (password1 == password2):
+        passwordMatch = True
+
+    data = {
+        'usernameNotValid': User.objects.filter(username__iexact=username).exists(),
+        'emailNotValid': User.objects.filter(email__iexact=email).exists(),
+        'passwordMatch': passwordMatch,
+    }
+    return JsonResponse(data)

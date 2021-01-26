@@ -6,14 +6,23 @@
         <div class="col col-sm-12 col-md-6 col-lg-6 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <form action="{% url 'signup' %}" method="post" id="signupForm" name="signupForm">
+                    <form action="{% url 'signup' %}" method="POST" id="signupForm" name="signupForm">
                         {% csrf_token %}
                         <fieldset class="px-3 mb-5">
                             <legend class="fieldset-label small text-black w-auto mb-3">Personal Details</legend>
                             {{ form.username | as_crispy_field }}
+                            <p id="error_username" class="error-message mb-0"><strong>A user with that
+                                    username already exists.</strong></p>
                             {{ form.email | as_crispy_field }}
+                            <p id="error_email" class="error-message mb-0"><strong>A user with that
+                                    email already exists.</strong></p>
                             {{ form.password1 | as_crispy_field }}
+                            <p id="error_password1" class="error-message mb-0"><strong>Password does not match or
+                                    invalid format.</strong>
+                            </p>
                             {{ form.password2 | as_crispy_field }}
+                            <p id="error_password2" class="error-message mb-0"><strong>Password does not match.</strong>
+                            </p>
                         </fieldset>
                         <fieldset class="px-3">
                             <legend class="fieldset-label small text-black w-auto mb-3">Payment</legend>
@@ -23,8 +32,8 @@
                             <input hidden name="planId" id="planId" value="{{plan.id}}"></input>
                             <h5 class="text-right">{{plan.name}}</h5>
                             <h3 class="text-right">Total: €{{plan.price}}</h3>
-                            <button type="submit" id="submit-button" class="btn btn-warning float-right mt-3"
-                                disabled>Signup</button>
+                            <button type="submit" id="submit-button" disabled
+                                class="btn btn-warning float-right mt-3">Signup</button>
                         </fieldset>
 
                     </form>

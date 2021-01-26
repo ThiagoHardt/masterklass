@@ -158,10 +158,18 @@ label {
     background-size: cover;
   }
 
-  .profile-picture > img {
-      width: 150px;
-  }
+.profile-picture > img {
+    width: 150px;
+}
 
-  tr.collapse.in {
+tr.collapse.in {
     display:table-row;
-  }
+}
+
+.error-message {
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;  
+}

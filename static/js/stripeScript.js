@@ -1,4 +1,59 @@
 $(document).ready(function () {
+
+    $("#signupForm").change(function () {
+        var username = $("#id_username").val()
+        var email = $("#id_email").val()
+        var password1 = $("#id_password1").val()
+        var password2 = $("#id_password2").val()
+  
+        $.ajax({
+          url: '/purchase/pre_validade_user/',
+          data: {
+            'username': username,
+            'email': email,
+            'password1': password1,
+            'password2': password2
+          },
+          dataType: 'json',
+          success: function (data) {
+            if (data.usernameNotValid) {
+                $("#error_username").insertAfter($("#id_username"));
+                $("#id_username").addClass('is-invalid');
+                $("#error_username").show();
+            }
+            else{
+                $("#error_username").hide();
+                $("#id_username").removeClass('is-invalid');
+            }
+            if (data.emailNotValid) {
+                $("#error_email").insertAfter($("#id_email"));
+                $("#id_email").addClass('is-invalid');
+                $("#error_email").show();
+            }
+            else{
+                $("#error_email").hide();
+                $("#id_email").removeClass('is-invalid');
+            }
+            if (data.passwordMatch) {
+                $("#id_password1").removeClass('is-invalid');
+                $("#id_password2").removeClass('is-invalid');
+                $("#error_password1").hide();
+                $("#error_password2").hide();            
+            }
+            else{
+                $("#error_password1").insertAfter($("#id_password1"));
+                $("#error_password2").insertAfter($("#id_password2"));
+                $("#id_password1").addClass('is-invalid');
+                $("#id_password2").addClass('is-invalid');
+                $("#error_password1").show();
+                $("#error_password2").show();
+            }
+            if (data.emailNotValid == false && data.usernameNotValid == false && data.passwordMatch){
+                $('#submit-button').attr('disabled', false);
+            }
+          }
+        });
+    });
     
     // ############################ Stripe ##############################################
 
@@ -36,12 +91,7 @@ $(document).ready(function () {
                 </span>
                 <span class="small">${event.error.message}</span>
             `;
-            $(errorDiv).html(html);
-            $('#submit-button').attr('disabled', true);
-        } else {
-            errorDiv.textContent = ''
-            $('#submit-button').attr('disabled', false);
-        }
+        } 
     });
     // Handle form submit
     var form = document.getElementById('signupForm');

@@ -28,6 +28,11 @@ class ExtendedUserCreationForm(UserCreationForm):
         labels and set autofocus on first field
         """
         super().__init__(*args, **kwargs)
+
+        acceptedPassword = ""
+        self.fields['password1'].widget.attrs[
+            'pattern'] = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+
         placeholders = {
             'username': 'Username',
             'email': 'Email Address',
