@@ -5,7 +5,7 @@ from .models import Plan
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.http import JsonResponse
-from django.contrib.auth.password_validation import validate_password
+from allauth.account.utils import send_email_confirmation
 from .forms import ExtendedUserCreationForm, UserProfileForm
 import stripe
 
@@ -75,9 +75,8 @@ def signup(request):
             profile.plan = plan
             profile.save()
 
+            send_email_confirmation(request, user)
             logout(request)
-            message = "Account created successfully, please login."
-            messages.success(request, message)
             return redirect("account_login")
 
     return render(request, 'purchase/purchase_plan.html', context)

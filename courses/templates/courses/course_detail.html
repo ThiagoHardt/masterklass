@@ -12,6 +12,11 @@
 <hr class="linebreak mb-5" />
 <div class="container p-0">
     <div class="row row-cols-xl-2 row-cols-lg-2 row-cols-md-1 row-cols-sm-2">
+        {% if lessons|length == 0 %}
+        <div class="col text-center mx-auto mb-4">
+            <h5 class="text-muted font-italic">Sorry, this course have no lessons at the moment.</h5>
+        </div>
+        {% endif %}
         {% for lesson in lessons %}
         <div class="container">
             <div class="col">
