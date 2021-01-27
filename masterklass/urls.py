@@ -17,6 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+import django
+
+
+def custom_page_not_found(request):
+    return django.views.defaults.page_not_found(request, None)
+
+
+def custom_server_error(request):
+    return django.views.defaults.server_error(request)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +35,7 @@ urlpatterns = [
     path('purchase/', include('purchase.urls')),
     path('courses/', include('courses.urls')),
     path('profiles/', include('profiles.urls')),
+    path("404/", custom_page_not_found),
+    path("500/", custom_server_error),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
